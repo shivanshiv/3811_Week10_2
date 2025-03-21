@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
+
 //Default
 /*
 function App() {
@@ -22,8 +23,8 @@ function App() {
       </header>
     </div>
   );
-}
-*/
+}*/
+
 
 //Example-1
 /*
@@ -31,7 +32,7 @@ import Example1 from './Example1.js';
 function App() {
   return(
   <div>
-    <h1>useEffect() Example</h1>
+    <h1>useState() Example</h1>
     <hr />
     <Example1 />
   </div>
@@ -41,234 +42,105 @@ function App() {
 
 //Example-2
 /*
-import React, { useState } from 'react';
+import React, { useState }  from 'react';
 
 function App() {
-  const [email, setEmail] = useState(null);
-  const [cellphone, setCellphone] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function fetchData() {
-    try {
-      // Set loading to true while data is being fetched
-      setIsLoading(true);
-      
-      // Fetch data from an API
-      const response = await fetch('https://api.randomuser.me/?nat=US&results=1');
-      if (response.ok) {
-        // Check if the request was successful
-        let { results } = await response.json();
-        // Parse the JSON data from the response
-        let { email, cell } = results[0];
-        // Set the fetched data to the state
-        setEmail(email);
-        setCellphone(cell);
-      } 
-      else {
-        // Handle error if the request was not successful
-        console.error('Failed to fetch data:', response.statusText);
-      }
-    } 
-    catch (error) {
-      // Handle network errors or other exceptions
-      console.error('Error during data fetching:', error);
-    } 
-    finally {
-      setIsLoading(false); // Set loading to false once data fetching is complete
-    }
-  }
-
+  // Declare a state variable named "count" with an initial value of 0
+  const [count, setCount] = useState(0);
+  
   return (
     <div>
-      <h1>Fetch Data Without useEffect</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <button onClick={fetchData}>Fetch Data</button>
-          {email && (
-            <div>
-              <h2>Fetched Data:</h2>
-              <pre>{email}</pre>
-              <pre>{cellphone}</pre>
-            </div>
-            )
-          }
-        </div>
-      )
-      }
+      <h1>useState() Example</h1>
+      <hr />
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
     </div>
   );
 }
-*/
+
 
 //Example-3
 /*
-import React, { useState } from 'react';
+import React, { useState }  from 'react';
 
 function App() {
-  const [email, setEmail] = useState(null);
-  const [cellphone, setCellphone] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function fetchData() {
-    // Set loading to true while data is being fetched
-    setIsLoading(true);
-    
-    // Fetch data from an API using .then()
-    fetch('https://api.randomuser.me/?nat=US&results=1')
-    .then((response) => response.json())
-    .then((data) => {
-      // Parse the JSON data from the response
-      let { email, cell } = data.results[0];
-      
-      // Set the fetched data to the state
-      setEmail(email);
-      setCellphone(cell);
-    })
-    .catch((error) => {
-      // Handle error if the request was not successful
-      console.error('Failed to fetch data:', error.message);
-    })
-    .finally(() => {
-      // Set loading to false once data fetching is complete
-      setIsLoading(false);
-    }); 
-  }
-
-
-  return (
-    <div>
-      <h1>Fetch Data Without useEffect</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <button onClick={fetchData}>Fetch Data</button>
-          {email && (
-            <div>
-              <h2>Fetched Data:</h2>
-              <pre>{email}</pre>
-              <pre>{cellphone}</pre>
-            </div>
-            )
-          }
-        </div>
-      )
-      }
-    </div>
-  );
-}
-*/
-
-//Example-4
-/*
-import React, { useState, useEffect } from 'react';
-
-function App() {
-  const [email, setEmail] = useState(null);
-  const [cellphone, setCellphone] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function fetchData() {
-    // Set loading to true while data is being fetched
-    setIsLoading(true);
-    
-    // Fetch data from an API using .then()
-    fetch('https://api.randomuser.me/?nat=US&results=1')
-    .then((response) => response.json())
-    .then((data) => {
-      // Parse the JSON data from the response
-      let { email, cell } = data.results[0];
-      
-      // Set the fetched data to the state
-      setEmail(email);
-      setCellphone(cell);
-    })
-    .catch((error) => {
-      // Handle error if the request was not successful
-      console.error('Failed to fetch data:', error.message);
-    })
-    .finally(() => {
-      // Set loading to false once data fetching is complete
-      setIsLoading(false);
-    }); 
-  }
-
-  useEffect(() => {
-    fetchData();
-  },[]);  
-
-  return (
-    <div>
-      <h1>Fetch Data With useEffect</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <button onClick={fetchData}>Fetch Data</button>
-          {email && (
-            <div>
-              <h2>Fetched Data:</h2>
-              <pre>{email}</pre>
-              <pre>{cellphone}</pre>
-            </div>
-            )
-          }
-        </div>
-      )
-      }
-    </div>
-  );
-}
-*/
-
-//Example-5
-
-import React, { useState, useEffect } from 'react';
-
-function App() {
-  // State to store the fetched data
-  const [data, setData] = useState(null);
-  // State to track loading status
-  const [isLoading, setIsLoading] = useState(true);
+  // Declare a state variable to track the visibility of details
+  const [showDetails, setShowDetails] = useState(false);
   
-  // Effect to fetch data when the component mounts
-  useEffect(() => {
-    // Fetch data from an API
-    fetch('https://api.randomuser.me/?nat=US&results=1')
-    .then((response) => response.json())
-    .then((data) => {
-      // Set the fetched data to the state
-      setData(data.results[0]);
-      // Set loading to false once data fetching is complete
-      setIsLoading(false);
-    })
-    .catch((error) => {
-      // Handle errors
-      console.error('Error fetching data:', error);
-      // Set loading to false in case of an error
-      setIsLoading(false); 
-    }); 
-  }, []);
-
   return (
     <div>
-      <h1>Simple Example with useEffect and Fetch</h1>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
+      <h2>Toggle Details</h2>
+      <button onClick={() => setShowDetails(!showDetails)}>
+        {showDetails ? 'Hide Details' : 'Show Details'}
+      </button>
+
+      {showDetails && (
         <div>
-          <h2>Fetched Data:</h2>
-          <pre>{data.email}</pre>
-          <pre>{data.cell}</pre>
-          <pre>{data.phone}</pre>
+          <p>This is additional information that can be toggled.</p>
         </div>
         )
       }
     </div>
   );
+}*/
+
+
+//Example-4
+/*
+import Example4 from './Example4.js';
+function App() {
+  return(
+  <div>
+    <h1>useState() Example</h1>
+    <hr />
+    <Example4 />
+  </div>
+  );
 }
+*/
+
+//Example-5
+/*
+import Example5 from './Example5.js';
+import {React, createContext} from 'react';
+
+export const ThemeContext = createContext(null);
+
+function App () {
+  const theme = 'dark'; 
+  return (
+    <ThemeContext.Provider value={{theme}}>
+      <Example5 />
+    </ThemeContext.Provider>
+  );
+};
+*/
+
+//Example-6
+
+import Example5 from './Example5.js';
+import {React, createContext, useState} from 'react';
+
+export const ThemeContext = createContext(null);
+
+function App () {
+
+  const [theme, setTheme] = useState('light');
+  function toggleTheme(){
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <div>
+      <ThemeContext.Provider value={{theme}}>
+        <Example5 />
+      </ThemeContext.Provider>
+      <button onClick={toggleTheme}>Toggle Theme</button>
+    </div>
+  );
+};
 
 
 export default App;
